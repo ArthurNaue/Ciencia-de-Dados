@@ -2,8 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-st.set_page_config
-(
+st.set_page_config(
     page_title="Dashboard de Vendas",
     layout="wide"
 )
@@ -45,8 +44,7 @@ with col1:
 
 with col2:
     if selected_store != "Todas" and selected_product != "Todos":
-        st.info
-	(
+        st.info(
             f"Na loja **{selected_store}**, o produto "
             f"**{selected_product}** faturou "
             f"**R$ {total_revenue:,.2f}**."
@@ -57,15 +55,13 @@ st.dataframe(filtered_data, use_container_width=True)
 
 st.divider()
 
-chart_data = 
-(
+chart_data = (
     filtered_data.groupby("Loja")["Revenue"]
     .sum()
     .reset_index()
 )
 
-bar_chart = px.bar
-(
+bar_chart = px.bar(
     chart_data,
     x="Loja",
     y="Revenue",
@@ -82,15 +78,13 @@ if selected_store != "Todas":
         
     with chart_col2:
         pie_data = data[data["Loja"] == selected_store]
-        pie_data = 
-	(
+        pie_data = (
             pie_data.groupby("Produto")["Revenue"]
             .sum()
             .reset_index()
         )
 
-        pie_chart = px.pie
-	(
+        pie_chart = px.pie(
             pie_data,
             names="Produto",
             values="Revenue",
